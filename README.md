@@ -1,4 +1,4 @@
-# Employee_Management_System
+# Employee Management System
 
 An employee managing software which includes features that Employers/HR can use to organize an employees history. 
 
