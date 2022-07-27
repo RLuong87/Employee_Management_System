@@ -1,9 +1,12 @@
 package employee.management.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.time.LocalDate;
 
 @Entity
 public class Employee {
@@ -13,7 +16,10 @@ public class Employee {
     private Long id;
     private String firstName;
     private String lastName;
+    private String maritalStatus;
     private String gender;
+    @JsonFormat(pattern = "MM-dd-yyyy")
+    private LocalDate datOfBirth;
     private String address;
     private String city;
     private String state;
@@ -32,7 +38,9 @@ public class Employee {
 
     public Employee(String firstName,
                     String lastName,
+                    String maritalStatus,
                     String gender,
+                    LocalDate datOfBirth,
                     String address,
                     String city,
                     String state,
@@ -47,7 +55,9 @@ public class Employee {
                     boolean retirementPlan) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.maritalStatus = maritalStatus;
         this.gender = gender;
+        this.datOfBirth = datOfBirth;
         this.address = address;
         this.city = city;
         this.state = state;
@@ -86,12 +96,28 @@ public class Employee {
         this.lastName = lastName;
     }
 
+    public String getMaritalStatus() {
+        return maritalStatus;
+    }
+
+    public void setMaritalStatus(String maritalStatus) {
+        this.maritalStatus = maritalStatus;
+    }
+
     public String getGender() {
         return gender;
     }
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public LocalDate getDatOfBirth() {
+        return datOfBirth;
+    }
+
+    public void setDatOfBirth(LocalDate datOfBirth) {
+        this.datOfBirth = datOfBirth;
     }
 
     public String getAddress() {

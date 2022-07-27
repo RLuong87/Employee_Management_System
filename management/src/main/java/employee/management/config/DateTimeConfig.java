@@ -1,33 +1,33 @@
 package employee.management.config;
 
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.format.datetime.DateFormatter;
-import org.springframework.format.datetime.DateFormatterRegistrar;
-import org.springframework.format.datetime.standard.DateTimeFormatterRegistrar;
-import org.springframework.format.support.DefaultFormattingConversionService;
-import org.springframework.format.support.FormattingConversionService;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
 import java.time.format.DateTimeFormatter;
 
 @Configuration
-public class DateTimeConfig extends WebMvcConfigurationSupport {
+public class DateTimeConfig {
+
+    private static final String dateFormat = "yyyy-MM-dd";
+
+    private static final String dateTimeFormat = "yyyy-MM-dd HH:mm:ss";
 
     @Bean
-    @Override
-    public FormattingConversionService mvcConversionService() {
-        DefaultFormattingConversionService conversionService = new DefaultFormattingConversionService(false);
-
-        DateTimeFormatterRegistrar dateTimeRegistrar = new DateTimeFormatterRegistrar();
-        dateTimeRegistrar.setDateFormatter(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
-        dateTimeRegistrar.setDateTimeFormatter(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss"));
-        dateTimeRegistrar.registerFormatters(conversionService);
-
-        DateFormatterRegistrar dateRegistrar = new DateFormatterRegistrar();
-        dateRegistrar.setFormatter(new DateFormatter("dd.MM.yyyy"));
-        dateRegistrar.registerFormatters(conversionService);
-
-        return conversionService;
+    @ConditionalOnProperty(value = "spring.jackson.date-format", matchIfMissing = true, havingValue = "none")
+    public Jackson2ObjectMapperBuilderCustomizer jsonCustomizer() {
+        return new Jackson2ObjectMapperBuilderCustomizer() {
+            @Override
+            public void customize(Jackson2ObjectMapperBuilder builder) {
+                builder.simpleDateFormat(dateTimeFormat);
+                builder.serializers(new LocalDateSerializer(DateTimeFormatter.ofPattern(dateFormat)));
+                builder.serializers(new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(dateTimeFormat)));
+            }
+        };
     }
+
 }
