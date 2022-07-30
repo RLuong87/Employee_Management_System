@@ -1,12 +1,8 @@
-package employee.management.model;
+package employee.management.models;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.time.LocalDate;
+import javax.persistence.*;
 
 @Entity
 public class Employee {
@@ -14,12 +10,11 @@ public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String firstName;
-    private String lastName;
+    private String name;
     private String maritalStatus;
     private String gender;
-    @JsonFormat(pattern = "MM-dd-yyyy")
-    private LocalDate datOfBirth;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private String dateOfBirth;
     private String address;
     private String city;
     private String state;
@@ -29,47 +24,39 @@ public class Employee {
     private String ssn;
     private String title;
     private Long salary;
+    private String dateOfHire;
+    private boolean permanent;
     private boolean healthInsurance;
     private boolean dentalInsurance;
     private boolean retirementPlan;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id", referencedColumnName = "id")
+    private Department department;
+
     public Employee() {
     }
 
-    public Employee(String firstName,
-                    String lastName,
-                    String maritalStatus,
-                    String gender,
-                    LocalDate datOfBirth,
-                    String address,
-                    String city,
-                    String state,
-                    String zipcode,
-                    String phoneNumber,
-                    String email,
-                    String ssn,
-                    String title,
-                    Long salary,
-                    boolean healthInsurance,
-                    boolean dentalInsurance,
-                    boolean retirementPlan) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Employee(String name, String maritalStatus, String gender, String dateOfBirth, String address, String city, String state, String zipcode, String phoneNumber, String email, String ssn, String title, Long salary, String dateOfHire, boolean permanent, boolean healthInsurance, boolean dentalInsurance, boolean retirementPlan, Department department) {
+        this.name = name;
         this.maritalStatus = maritalStatus;
         this.gender = gender;
-        this.datOfBirth = datOfBirth;
+        this.dateOfBirth = dateOfBirth;
         this.address = address;
         this.city = city;
         this.state = state;
         this.zipcode = zipcode;
         this.phoneNumber = phoneNumber;
         this.email = email;
-        this.title = title;
         this.ssn = ssn;
+        this.title = title;
         this.salary = salary;
+        this.dateOfHire = dateOfHire;
+        this.permanent = permanent;
         this.healthInsurance = healthInsurance;
         this.dentalInsurance = dentalInsurance;
         this.retirementPlan = retirementPlan;
+        this.department = department;
     }
 
     public Long getId() {
@@ -80,20 +67,12 @@ public class Employee {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getMaritalStatus() {
@@ -112,12 +91,12 @@ public class Employee {
         this.gender = gender;
     }
 
-    public LocalDate getDatOfBirth() {
-        return datOfBirth;
+    public String getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setDatOfBirth(LocalDate datOfBirth) {
-        this.datOfBirth = datOfBirth;
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     public String getAddress() {
@@ -168,14 +147,6 @@ public class Employee {
         this.email = email;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getSsn() {
         return ssn;
     }
@@ -184,12 +155,36 @@ public class Employee {
         this.ssn = ssn;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDateOfHire() {
+        return dateOfHire;
+    }
+
+    public void setDateOfHire(String dateOfHire) {
+        this.dateOfHire = dateOfHire;
+    }
+
     public Long getSalary() {
         return salary;
     }
 
     public void setSalary(Long salary) {
         this.salary = salary;
+    }
+
+    public boolean isPermanent() {
+        return permanent;
+    }
+
+    public void setPermanent(boolean permanent) {
+        this.permanent = permanent;
     }
 
     public boolean isHealthInsurance() {
@@ -214,5 +209,13 @@ public class Employee {
 
     public void setRetirementPlan(boolean retirementPlan) {
         this.retirementPlan = retirementPlan;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 }

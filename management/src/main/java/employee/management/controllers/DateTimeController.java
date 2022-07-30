@@ -1,4 +1,4 @@
-package employee.management.controller;
+package employee.management.controllers;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +13,7 @@ import java.time.LocalTime;
 public class DateTimeController {
 
     @GetMapping(params = "date")
-    public String localDate(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") final LocalDate date) {
+    public String localDate(@RequestParam @DateTimeFormat(pattern = "MM-dd-yyyy") final LocalDate date) {
         return date.toString();
     }
 

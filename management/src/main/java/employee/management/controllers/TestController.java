@@ -1,4 +1,4 @@
-package employee.management.controller;
+package employee.management.controllers;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;

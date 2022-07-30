@@ -1,9 +1,7 @@
-package employee.management.model;
+package employee.management.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Department {
@@ -13,7 +11,15 @@ public class Department {
     private Long id;
     private String name;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "department")
+    private List<Employee> employee;
+
     public Department() {
+    }
+
+    public Department(String name, List<Employee> employee) {
+        this.name = name;
+        this.employee = employee;
     }
 
     public Department(String name) {
@@ -34,5 +40,13 @@ public class Department {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Employee> getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(List<Employee> employee) {
+        this.employee = employee;
     }
 }
