@@ -1,7 +1,9 @@
 package employee.management.controllers;
 
 import employee.management.models.Employee;
+import employee.management.models.auth.User;
 import employee.management.repositories.EmployeeRepository;
+import employee.management.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,9 @@ public class EmployeeController {
     @Autowired
     private EmployeeRepository employeeRepository;
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping
     public ResponseEntity<Iterable<Employee>> getAll() {
         return new ResponseEntity<>(employeeRepository.findAll(), HttpStatus.OK);
@@ -23,12 +28,22 @@ public class EmployeeController {
 
     @PostMapping
     public Employee createEmployee(@RequestBody Employee employee) {
+        User currentUser = userService.getCurrentUser()     ;
+
+        if (currentUser == null) {
+            return null;
+        }
         return employeeRepository.save(employee);
     }
 
     @PutMapping("/update/{id}")
     public @ResponseBody
     Employee updateEmployee(@PathVariable Long id, @RequestBody Employee updates) {
+        User currentUser = userService.getCurrentUser();
+
+        if (currentUser == null) {
+            return null;
+        }
 
         Employee employee = employeeRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
