@@ -28,7 +28,7 @@ public class EmployeeController {
 
     @PostMapping
     public Employee createEmployee(@RequestBody Employee employee) {
-        User currentUser = userService.getCurrentUser()     ;
+        User currentUser = userService.getCurrentUser();
 
         if (currentUser == null) {
             return null;
@@ -44,7 +44,6 @@ public class EmployeeController {
         if (currentUser == null) {
             return null;
         }
-
         Employee employee = employeeRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         if (updates.getName() != null) employee.setName(updates.getName());
@@ -61,10 +60,10 @@ public class EmployeeController {
         if (updates.getTitle() != null) employee.setTitle(updates.getTitle());
         if (updates.getSalary() != null) employee.setSalary(updates.getSalary());
         if (updates.getDateOfHire() != null) employee.setDateOfHire(updates.getDateOfHire());
-        if (updates.isPermanent()) employee.setPermanent(updates.isPermanent());
-        if (updates.isHealthInsurance()) employee.setHealthInsurance(updates.isHealthInsurance());
-        if (updates.isDentalInsurance()) employee.setDentalInsurance(updates.isDentalInsurance());
-        if (updates.isRetirementPlan()) employee.setRetirementPlan(updates.isRetirementPlan());
+        if (updates.getPermanent() != null) employee.setPermanent(updates.getPermanent());
+        if (updates.getHealthInsurance() != null) employee.setHealthInsurance(updates.getHealthInsurance());
+        if (updates.getDentalInsurance() != null) employee.setDentalInsurance(updates.getDentalInsurance());
+        if (updates.getRetirementPlan() != null) employee.setRetirementPlan(updates.getRetirementPlan());
 
         return employeeRepository.save(employee);
     }

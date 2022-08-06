@@ -25,38 +25,16 @@ public class Employee {
     private String title;
     private Long salary;
     private String dateOfHire;
-    private boolean permanent;
-    private boolean healthInsurance;
-    private boolean dentalInsurance;
-    private boolean retirementPlan;
+    private String permanent;
+    private String healthInsurance;
+    private String dentalInsurance;
+    private String retirementPlan;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id", referencedColumnName = "id")
     private Department department;
 
     public Employee() {
-    }
-
-    public Employee(String name, String maritalStatus, String gender, String dateOfBirth, String address, String city, String state, String zipcode, String phoneNumber, String email, String ssn, String title, Long salary, String dateOfHire, boolean permanent, boolean healthInsurance, boolean dentalInsurance, boolean retirementPlan, Department department) {
-        this.name = name;
-        this.maritalStatus = maritalStatus;
-        this.gender = gender;
-        this.dateOfBirth = dateOfBirth;
-        this.address = address;
-        this.city = city;
-        this.state = state;
-        this.zipcode = zipcode;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-        this.ssn = ssn;
-        this.title = title;
-        this.salary = salary;
-        this.dateOfHire = dateOfHire;
-        this.permanent = permanent;
-        this.healthInsurance = healthInsurance;
-        this.dentalInsurance = dentalInsurance;
-        this.retirementPlan = retirementPlan;
-        this.department = department;
     }
 
     public Long getId() {
@@ -179,35 +157,35 @@ public class Employee {
         this.salary = salary;
     }
 
-    public boolean isPermanent() {
+    public String getPermanent() {
         return permanent;
     }
 
-    public void setPermanent(boolean permanent) {
+    public void setPermanent(String permanent) {
         this.permanent = permanent;
     }
 
-    public boolean isHealthInsurance() {
+    public String getHealthInsurance() {
         return healthInsurance;
     }
 
-    public void setHealthInsurance(boolean healthInsurance) {
+    public void setHealthInsurance(String healthInsurance) {
         this.healthInsurance = healthInsurance;
     }
 
-    public boolean isDentalInsurance() {
+    public String getDentalInsurance() {
         return dentalInsurance;
     }
 
-    public void setDentalInsurance(boolean dentalInsurance) {
+    public void setDentalInsurance(String dentalInsurance) {
         this.dentalInsurance = dentalInsurance;
     }
 
-    public boolean isRetirementPlan() {
+    public String getRetirementPlan() {
         return retirementPlan;
     }
 
-    public void setRetirementPlan(boolean retirementPlan) {
+    public void setRetirementPlan(String retirementPlan) {
         this.retirementPlan = retirementPlan;
     }
 

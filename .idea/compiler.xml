@@ -2,8 +2,8 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
-      <module name="management.management.main" target="17" />
-      <module name="management.management.test" target="17" />
+      <module name="management.management.main~1" target="17" />
+      <module name="management.management.test~1" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>
